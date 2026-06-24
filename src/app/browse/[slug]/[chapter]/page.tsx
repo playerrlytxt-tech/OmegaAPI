@@ -26,7 +26,19 @@ function ChapterReaderContent() {
   const [readingMode, setReadingMode] = useState<'vertical' | 'paged'>('vertical');
   const [currentPage, setCurrentPage] = useState(0);
   const [showNav, setShowNav] = useState(true);
+const [theme, setTheme] = useState<'light' | 'dark' | 'amoled'>('dark');
 
+  // Sayfa ilk açıldığında tarayıcı hafızasındaki temayı kontrol et
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('omega-theme') as 'light' | 'dark' | 'amoled';
+    if (savedTheme) setTheme(savedTheme);
+  }, []);
+
+  // Temayı hem değiştiren hem de hafızaya kaydeden fonksiyon
+  const handleThemeChange = (newTheme: 'light' | 'dark' | 'amoled') => {
+    setTheme(newTheme);
+    localStorage.setItem('omega-theme', newTheme);
+  };
   /* Chapter navigation */
   const [allChapters, setAllChapters] = useState<Chapter[]>([]);
   const [currentIndex, setCurrentIndex] = useState(-1);
@@ -201,21 +213,53 @@ function ChapterReaderContent() {
   }
 
   return (
-    <main className="min-h-screen relative" style={{ background: '#0c0c12' }}>
+    <main className="theme-wrapper min-h-screen relative text-primary transition-colors duration-200" data-theme={theme} style={{ backgroundColor: 'var(--surface-default)' }}>
       {/* ── Top Nav ── */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${showNav ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`} style={{ background: 'rgba(12, 12, 18, 0.92)', backdropFilter: 'blur(16px)', borderBottom: '1px solid #2a2a36' }}>
-        <div className="max-w-container mx-auto px-5 h-14 flex items-center justify-between">
-          <a href={`/browse/${seriesSlug}`} className="flex items-center gap-2 text-sm text-[#a1a1aa] hover:text-[#e4e4e7] transition-colors font-medium">
-            <IconChevronLeft size={16} /> {chapter.series?.title || 'Back'}
-          </a>
-          <div className="flex items-center gap-3">
-            <span className="text-sm font-semibold text-[#e4e4e7]">{chapter.name}</span>
-            <span className="text-xs text-[#71717a]">({chapter.pageCount} pages)</span>
-          </div>
-          <button onClick={() => setReadingMode(readingMode === 'vertical' ? 'paged' : 'vertical')} className="text-xs px-3 py-1.5 bg-[#1e1e2a] border border-[#2a2a36] text-[#a1a1aa] hover:text-[#e4e4e7] transition-colors flex items-center gap-1.5 font-medium">
-            {readingMode === 'vertical' ? <><IconColumns size={13} /> Paged</> : <><IconFile size={13} /> Vertical</>}
+  <div className="max-w-container mx-auto px-5 h-14 flex items-center justify-between">
+      
+      {/* Sol Kısım: Geri Dön Linki */}
+      <a href={`/browse/${seriesSlug}`} className="flex items-center gap-2 text-sm">
+        <IconChevronLeft size={16} /> {chapter.series?.title || 'Back'}
+      </a>
+
+      {/* Orta Kısım: Bölüm Adı ve Sayfa Sayısı */}
+      <div className="flex items-center gap-3">
+        <span className="text-sm font-semibold text-[#e4e4e7]">{chapter.name}</span>
+        <span className="text-xs text-[#71717a]">({chapter.pageCount} pages)</span>
+      </div>
+
+      {/* Sağ Kısım: Okuma Modu ve Tema Butonları Grubu (Tek parça olarak hizalandı) */}
+      <div className="flex items-center gap-3">
+        {/* Okuma Modu Butonu */}
+        <button onClick={() => setReadingMode(readingMode === 'vertical' ? 'paged' : 'vertical')}>
+          {readingMode === 'vertical' ? <IconColumns size={13} /> : <IconLayers size={13} />}
+        </button>
+
+        {/* Tema Seçici Buton Grubu */}
+        <div className="flex items-center gap-1 p-1 border border-primary border-opacity-20 rounded bg-black bg-opacity-20 backdrop-blur-sm">
+          <button 
+            onClick={() => handleThemeChange('light')} 
+            className={`px-2 py-0.5 text-[10px] font-bold rounded transition-all ${theme === 'light' ? 'bg-primary text-black' : 'opacity-60 hover:opacity-100'}`}
+          >
+            AÇIK
+          </button>
+          <button 
+            onClick={() => handleThemeChange('dark')} 
+            className={`px-2 py-0.5 text-[10px] font-bold rounded transition-all ${theme === 'dark' ? 'bg-primary text-black' : 'opacity-60 hover:opacity-100'}`}
+          >
+            KOYU
+          </button>
+          <button 
+            onClick={() => handleThemeChange('amoled')} 
+            className={`px-2 py-0.5 text-[10px] font-bold rounded transition-all ${theme === 'amoled' ? 'bg-primary text-black' : 'opacity-60 hover:opacity-100'}`}
+          >
+            AMOLED
           </button>
         </div>
+      </div>
+
+    </div>
       </nav>
 
       <div className="fixed inset-0 z-30" style={{ pointerEvents: readingMode === 'paged' ? 'auto' : 'none' }} onClick={() => readingMode === 'paged' && setShowNav(!showNav)} />
