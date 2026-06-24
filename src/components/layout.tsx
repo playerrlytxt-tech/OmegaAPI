@@ -1,12 +1,12 @@
 /**
  * ┌─────────────────────────────────────────────────────────────┐
- * │  OmegaAPI — Layout Components                              │
- * │  Author : Sʜɪɴᴇɪ Nᴏᴜᴢᴇɴ                                   │
- * │  License: MIT                                              │
+ * │  ReLase — Layout Components                                 │
+ * │  Author : Sʜɪɴᴇɪ Nᴏᴜᴢᴇɴ , Sayless                           │         
+ * │  License: MIT                                               │
  * │  Module : src/components/layout.tsx                         │
  * └─────────────────────────────────────────────────────────────┘
  *
- * Shared layout components for the OmegaAPI frontend:
+ * Shared layout components for the ReLase frontend:
  * - Navbar: Responsive navigation bar with light/dark theme support
  * - Footer: Site footer with links, credits, and heartbeat animation
  */
@@ -38,7 +38,7 @@ export function Navbar({ active, children, theme = 'light' }: { active?: 'home' 
       <div className="max-w-container mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
         <a href="/" className="flex items-center gap-2.5 group">
           <div className={`w-8 h-8 flex items-center justify-center font-black text-sm border-2 ${isDark ? 'bg-[#fbbf24] text-[#0f172a] border-[#e4e4e7]' : 'bg-[#f59e0b] text-[#0f172a] border-[#0f172a]'} shadow-brutal-sm`}>Ω</div>
-          <span className="font-display text-lg tracking-tight" style={{ color: isDark ? '#e4e4e7' : '#0f172a' }}>OMEGAAPI</span>
+          <span className="font-display text-lg tracking-tight" style={{ color: isDark ? '#e4e4e7' : '#0f172a' }}><img src="/logo.jpg" alt="Logo" className="h-8 w-auto" /></span>
           {active === 'docs' && <span className="pill-tag ml-1 hidden sm:inline-flex" style={{ color: '#8b5cf6', borderColor: '#8b5cf6' }}>DOCS</span>}
           {active === 'browse' && <span className="pill-tag ml-1 hidden sm:inline-flex" style={{ color: isDark ? '#ef4444' : '#06b6d4', borderColor: isDark ? '#ef4444' : '#06b6d4' }}>BROWSE</span>}
           {active === 'support' && <span className="pill-tag ml-1 hidden sm:inline-flex" style={{ color: '#f59e0b', borderColor: '#f59e0b' }}>SUPPORT</span>}
@@ -97,7 +97,7 @@ export function Footer({ theme = 'light' }: { theme?: 'light' | 'dark' }) {
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 flex items-center justify-center font-black text-sm border-2" style={{ background: accent, color: '#0f172a', borderColor: '#e4e4e7' }}>Ω</div>
             <div>
-              <span className="font-display text-sm tracking-wider" style={{ color: '#e4e4e7' }}>OMEGAAPI</span>
+              <span className="font-display text-sm tracking-wider" style={{ color: '#e4e4e7' }}><img src="/logo.png" alt="Logo" className="h-8 w-auto" /></span>
               <p className="text-xs" style={{ color: text }}>Free Manga & Manhwa REST API</p>
             </div>
           </div>
@@ -113,13 +113,13 @@ export function Footer({ theme = 'light' }: { theme?: 'light' | 'dark' }) {
         {/* Attribution */}
         <div className="mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: `1px solid ${isDark ? '#222230' : '#334155'}` }}>
           <p className="text-xs" style={{ color: text }}>
-            Data From <a href="https://omegascans.org" target="_blank" rel="noopener noreferrer" className="font-semibold hover:underline" style={{ color: accent }}>OmegaScans</a> • Not Affiliated
+            Data From <a href="https://www.youtube.com/@Sayless-z" target="_blank" rel="noopener noreferrer" className="font-semibold hover:underline" style={{ color: accent }}>OmegaScans</a> • Not Affiliated
           </p>
           <div className="flex items-center gap-2 text-xs" style={{ color: text }}>
             <span>Built with</span>
             <span className="animate-heartbeat inline-flex items-center" style={{ color: '#ef4444' }}><IconHeart size={14} /></span>
             <span>by</span>
-            <a href="https://github.com/Shineii86" target="_blank" rel="noopener noreferrer" className="font-semibold hover:underline" style={{ color: accent }}>Shinei Nouzen</a>
+            <a href="https://www.youtube.com/@Sayless-z" target="_blank" rel="noopener noreferrer" className="font-semibold hover:underline" style={{ color: accent }}>Shinei Nouzen</a>
           </div>
         </div>
       </div>
