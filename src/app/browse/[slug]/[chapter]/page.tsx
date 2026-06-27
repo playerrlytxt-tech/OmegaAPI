@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import type { ChapterData, Chapter } from '@/types';
-import { IconChevronLeft, IconChevronRight, IconColumns, IconFile, IconHome, IconBook } from '@/components/icons';
+import { IconChevronLeft, IconChevronRight, IconColumns, IconFile, IconHome, IconBook ,IconLayers } from '@/components/icons';
 import { saveHistory, saveReadingPosition, getReadingPosition } from '@/lib/storage';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 const BASE = typeof window !== 'undefined' ? window.location.origin : 'https://omegaapi.vercel.app';
